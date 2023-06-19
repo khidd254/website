@@ -1,22 +1,51 @@
 <template>
-  <div class="login-container">
-    <div class="login-form">
-      <h2>Login</h2>
-      <form @submit="login">
-        <div class="form-group">
-          <label for="username">Username:</label>
-          <input type="text" id="username" v-model="username" required>
-        </div>
-        <div class="form-group">
-          <label for="password">Password:</label>
-          <input type="password" id="password" v-model="password" required>
-        </div>
-        <button type="submit">Log in</button>
-      </form>
-    </div>
+  <div class="login-view">
+    <h1>Login Page</h1>
+    <input type="text" v-model="username" placeholder="Username" />
+    <input type="password" v-model="password" placeholder="Password" />
+    <button @click="login">Login</button>
   </div>
 </template>
 
+<script>
+export default {
+  name: 'LoginView',
+  data() {
+    return {
+      username: '',
+      password: '',
+    };
+  },
+  methods: {
+    login() {
+      // Perform authentication logic here
+      // You can implement your own authentication logic or call an authentication API
+      const isAuthenticated = this.authenticate(this.username, this.password);
+      
+      if (isAuthenticated) {
+        // Redirect to the home page if login is successful
+        this.$router.push({ name: 'home' });
+      } else {
+        // Show an error message or handle failed login
+        console.log('Login failed');
+      }
+    },
+    authenticate(username, password) {
+      // Here, you can implement your own authentication logic, such as querying a database or calling an authentication API
+      // This is a simplified example using hard-coded credentials
+      const validUsername = 'admin';
+      const validPassword = 'password';
+  
+      // Check if the provided username and password match the valid credentials
+      if (username === validUsername && password === validPassword) {
+        return true; // Authentication successful
+      } else {
+        return false; // Authentication failed
+      }
+    },
+  },
+};
+</script>
 <style scoped>
 .login-container {
   display: flex;
@@ -68,19 +97,3 @@ button:hover {
 }
 </style>
 
-<script>
-export default {
-  data() {
-    return {
-      username: '',
-      password: ''
-    };
-  },
-  methods: {
-    login(event) {
-      event.preventDefault();
-      // Add your login logic here
-    }
-  }
-};
-</script>
