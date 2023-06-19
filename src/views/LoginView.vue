@@ -1,9 +1,16 @@
 <template>
   <div class="login-view">
-    <h1>Login Page</h1>
-    <input type="text" v-model="username" placeholder="Username" />
-    <input type="password" v-model="password" placeholder="Password" />
-    <button @click="login">Login</button>
+    <form class="login-form">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" v-model="username" id="username" class="form-control" placeholder="Enter your username" />
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" v-model="password" id="password" class="form-control" placeholder="Enter your password" />
+      </div>
+      <button @click="login" class="btn-login">Login</button>
+    </form>
   </div>
 </template>
 
@@ -18,82 +25,75 @@ export default {
   },
   methods: {
     login() {
-      // Perform authentication logic here
-      // You can implement your own authentication logic or call an authentication API
       const isAuthenticated = this.authenticate(this.username, this.password);
-      
+
       if (isAuthenticated) {
-        // Redirect to the home page if login is successful
         this.$router.push({ name: 'home' });
       } else {
-        // Show an error message or handle failed login
         console.log('Login failed');
       }
     },
     authenticate(username, password) {
-      // Here, you can implement your own authentication logic, such as querying a database or calling an authentication API
-      // This is a simplified example using hard-coded credentials
       const validUsername = 'admin';
       const validPassword = 'password';
-  
-      // Check if the provided username and password match the valid credentials
       if (username === validUsername && password === validPassword) {
-        return true; // Authentication successful
+        return true;
       } else {
-        return false; // Authentication failed
+        return false;
       }
     },
   },
 };
 </script>
+
 <style scoped>
-.login-container {
+.login-view {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: #f0f0f0;
+}
+
+.login-title {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
 }
 
 .login-form {
-  background: #fff;
-  padding: 2rem;
+  width: 300px;
+  padding: 20px;
+  background-color: #f2f2f2;
   border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-h2 {
-  margin-bottom: 1rem;
 }
 
 .form-group {
-  margin-bottom: 1rem;
+  margin-bottom: 15px;
 }
 
 label {
-  font-weight: bold;
+  display: block;
+  font-size: 16px;
+  margin-bottom: 5px;
 }
 
-input {
+.form-control {
   width: 100%;
-  padding: 0.5rem;
+  padding: 8px;
+  font-size: 16px;
   border-radius: 4px;
   border: 1px solid #ccc;
 }
 
-button {
+.btn-login {
   display: block;
   width: 100%;
-  padding: 0.5rem;
-  border-radius: 4px;
-  border: none;
-  background: #007bff;
+  padding: 10px;
+  font-size: 16px;
   color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
 }
-
-button:hover {
-  background: #0056b3;
-}
 </style>
-
